@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css" />
+		<style type="text/css">
+			div,
+			ul,
+			li,
+			p,
+			input,
+			span,
+			button {
+				color: #999;
+				display: inline-block;
+				margin: .5rem .25rem;
+			}
+
+			.list-enter-active,
+			.list-leave-active {
+				transition: all 1s;
+			}
+
+			.list-enter,
+			.list-leave-to
+
+			/* .list-leave-active for below version 2.1.8 */
+				{
+				opacity: 0;
+				transform: translateY(30px);
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="am-container" id="app">
+
+			<div class="demo">
+				<div class="am-btn-group">
+					<button type="button" v-on:click="add" v-bind:class="className">ADD</button>
+					<button type="button" v-on:click="remove" class="am-btn am-btn-danger">DEL</button>
+				</div>
+				<br />
+				<transition-group name="list" tag="p">
+					<span class="am-badge am-badge-primary am-radius" v-for="item in items" v-bind:key="item" class="item-list">
+						{{item}}
+					</span>
+					</transition>
+			</div>
+			
+			
+
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: "#app",
+			data: {
+				items: [1, 2, 3, 4, 5, 6, 7],
+				nextNum: 9,
+				className:"am-btn am-btn-success"
+			},
+			methods: {
+				randomIndex: function() {
+					return Math.floor(Math.random() * this.items.length)
+				},
+				add: function() {
+					this.items.splice(this.randomIndex(), 0, this.nextNum++)
+				},
+				remove: function() {
+					this.items.splice(this.randomIndex(), 1);
+				}
+			},
+			computed: {
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css" />
+		<style type="text/css">
+			div,
+			span,
+			ul,
+			li,
+			p,
+			input {
+				display: block;
+				color: #999;
+				line-height: 3rem;
+				width: 100%;
+				margin-bottom: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="am-container" id="app">
+			<div class="am-input-group am-cf">
+				<input v-model.lazy="newTodoText" class="am-form-field" type="text"  placeholder="" />
+				<span class="am-input-group-btn">
+					<button type="button" v-on:click="addIitem" class="am-btn am-btn-danger"><i class="am-icon-plus"></i></button>
+				</span>
+			</div>
+			<ul class="am-list">
+				<todo-item v-for="(todo, index) in todos" v-bind:key="todo.id" v-bind:title="todo.title" v-on:remove="todos.splice(index, 1)"></todo-item>
+			</ul>
+
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		Vue.component('todo-item', {
+			template: '<li>{{ formartTitle }}\
+						<button class="am-btn am-btn-danger am-fr" type="button" v-on:click="$emit(\'remove\')">Remove</button>\
+					</li>',
+			props: ['title'],
+			computed:{
+				formartTitle: function(){
+					return this.title.trim().toUpperCase();
+				}
+			}
+		})
+
+
+		var app = new Vue({
+			el: "#app",
+			data: {
+				newTodoText: 'Add a item',
+				todos: [{
+						id: 1,
+						title: 'Do the dishes',
+					},
+					{
+						id: 2,
+						title: 'Take out the trash',
+					},
+					{
+						id: 3,
+						title: 'Mow the lawn'
+					}
+				],
+				nextTodoId: 4
+			},
+			methods: {
+				addIitem: function() {
+					if(!this.newTodoText){this.newTodoText = 'no msg !'}
+					this.todos.push({
+						id: this.nextTodoId++,
+						title: this.newTodoText
+					})
+					this.newTodoText = ''
+				}
+			},
+			comments:{}
+		})
+	</script>
+</html>

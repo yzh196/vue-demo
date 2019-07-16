@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css" />
+		<style type="text/css">
+			div,
+			ul,
+			li,
+			p,
+			input {
+				display: block;
+				color: #999;
+				width: 100%;
+				margin-bottom: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="am-container" id="app">
+
+			<alert-box>数据类型异常！！！</alert-box>
+
+			<panle>
+				<template v-slot:header>
+					<h3>Here might be a page title</h3>
+				</template>
+
+				<p>A paragraph for the main content.</p>
+				<p><span class="am-badge am-badge-primary">{{title}}</span> And another one.</p>	
+
+				<template v-slot:footer>
+					<p>Here's some contact info</p>
+				</template>
+			</panle>
+
+			<student v-bind:user="user" ref="stu">
+
+			</student>
+
+			<worker v-slot:default="deprops" v-bind:user="user">
+				{{deprops.user.name}} + {{user.name}} 
+			</worker>
+
+
+
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		Vue.component('alert-box', {
+			template: '<div class="am-alert am-alert-danger  am-radio">\
+							<strong>Error!</strong>\
+							<slot></slot>\
+						</div>'
+		});
+
+		Vue.component('panle', {
+			template: '<div class="am-panel am-panel-danger">\
+							<div class="am-panel-hd"><slot name="header"></slot></div>\
+							<div class="am-panel-bd"><slot>暂无信息</slot></div>\
+							<footer class="am-panel-footer"><slot name="footer"></slot></footer>\
+						</div>'
+		});
+		
+		Vue.component('student', {
+			data: function() {
+				
+				return {
+					
+				}
+			},
+			props:['user'],
+			template:'<span class="am-badge am-badge-success">\
+						<slot>{{user.name}}</slot>\
+					</span>'
+		})
+		
+		Vue.component('worker', {
+					data: function() {
+						return {
+							user: {
+									name: 'jack',
+									age: 24
+								}
+		 					} 	 					
+					},
+					template:'<span class="am-badge am-badge-danger">\
+								<slot v-bind:user="user">{{user.name}}</slot>\
+							</span>'
+				})
+		
+
+
+		var app = new Vue({
+			el: "#app",
+			data: {
+				title: 'studeent',
+				user: {
+					name: 'tom',
+					age: 24
+				}
+			},
+			computed: {
+
+			}
+		})
+		
+	
+	</script>
+</html>

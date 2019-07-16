@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css" />
+		<style type="text/css">
+			div,
+			ul,
+			li,
+			p,
+			input,
+			span,
+			button {
+				color: #999;
+				display: inline-block;
+			}
+
+		</style>
+	</head>
+	<body>
+
+
+		<div class="am-container" id="app">
+			<div class="am-input-group">
+				<input v-model.number="firstNum" type="number" class="am-form-field" placeholder="first">
+				<span class="am-input-group-label"><i class="am-icon-plus"></i></span>
+				<input v-model.number="secondNum" type="number" class="am-form-field" placeholder="second">
+				<span class="am-input-group-label">= {{result}}</span>
+			</div>
+			<p class="am-alert am-alert-danger">
+				<animated-integer v-bind:value='firstNum'></animated-integer> +
+				<animated-integer v-bind:value='secondNum'></animated-integer> =
+				<animated-integer v-bind:value='result'></animated-integer>
+			</p>
+		</div>
+
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdn.jsdelivr.net/npm/tween.js@16.3.4"></script>
+
+	<script type="text/javascript">	
+		Vue.component('animated-integer',{
+			template: '<span class="am-badge am-badge-warning">{{tweeningValue}}</span>',
+			props: {
+				value: {
+					type: Number,
+					required: true
+				}
+			},
+			data: function(){
+				return {
+					tweeningValue: 0
+				}
+			},
+			watch: {
+				value:  function(newValue, oldValue){
+					this.tween(oldValue, newValue);
+				}
+			},
+			mounted: function(){
+				this.tween(0, this.value)
+			},
+			methods:{
+				tween: function(startValue, endValue){
+					var vm =  this;
+					function animate(){
+						if(TWEEN.update()){
+							requestAnimationFrame(animate)
+						}
+					};
+					new TWEEN.Tween({tweeningValue: startValue})
+					.to({tweeningValue: endValue}, 500)
+					.onUpdate(function(){
+						vm.tweeningValue = this.tweeningValue.toFixed(0);
+					})
+					.start();
+					
+					animate();
+				}
+			}
+			
+		});
+	
+		
+		var app = new Vue({
+				el: '#app',
+				data: {
+					firstNum: 20,
+					secondNum: 30
+				},
+				computed:{
+					result: function(){
+						return this.firstNum + this.secondNum;
+					}
+				}
+		});
+		
+			
+	</script>
+</html>

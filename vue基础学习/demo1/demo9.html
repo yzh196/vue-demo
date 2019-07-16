@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css" />
+		<style type="text/css">
+			div,
+			ul,
+			li,
+			p,
+			input,
+			span,
+			button {
+				color: #999;
+				display: inline-block;
+			}
+
+		</style>
+	</head>
+	<body>
+
+		<div class="am-container" id="app">
+			<input v-model.number="number" type="number" class="am-form-field" name="number" id="" step="5" />
+			<p class="am-alert am-alert-danger">{{animationNumber}}</p>
+		</div>
+
+
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+	<script type="text/javascript">
+		var number = new Number(0);
+		var app = new Vue({
+			el: '#app',
+			data: {
+				number: number,
+				tweenedNumber: 0
+			},
+			computed: {
+				animationNumber: function() {
+					return this.tweenedNumber.toFixed(0);
+				}
+			},
+			watch: {
+				number: function(newValue) {
+					TweenLite.to(this.$data, 0.5, {
+						tweenedNumber: newValue
+					});
+					console.log(newValue)
+				}
+			}
+		});
+	</script>
+</html>

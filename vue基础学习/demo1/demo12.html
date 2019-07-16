@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css" />
+		<style type="text/css">
+			div,
+			ul,
+			li,
+			p,
+			input,
+			button {
+				display: block;
+				color: #999;
+				width: 100%;
+				margin-bottom: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="am-container" id="app">
+
+			<input type="text" class="am-form-field" v-focus name="" id="" value="" placeholder="加载页面后自动获取焦点" />
+
+			<p class="am-alert am-alert-danger">
+				<span id="info" v-demo:foo.a.b="message"></span>
+			</p>
+
+			<blog-post>
+				<template slot="header">
+					<h1>About Me - {{name}}</h1>
+				</template>
+
+				<p>Here's some page content, which will be included in vm.$slots.default, because it's not inside a named slot.</p>
+
+				 <h1 slot="main">Here might be a page title</h1>
+
+				<template v-slot:footer>
+					<p>Copyright 2016 Evan You</p>
+				</template>
+
+				<p>If I have some content down here, it will also be included in vm.$slots.default.</p>
+			</blog-post>
+
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		Vue.directive('focus', {
+			inserted: function(el) {
+				el.focus()
+			}
+		})
+
+		Vue.component('blog-post', {
+			render: function(createElement) {
+				var header = this.$slots.header;
+				var main = this.$slots.main;
+				var footer = this.$slots.footer;
+				var de = this.$slots.default;
+				console.log(this.$slots)
+				return createElement('div', [
+					createElement('header', header),
+					createElement('main',[main,createElement('p', de)]),
+					createElement('footer', footer)
+				]);
+				
+			}
+		})
+
+		Vue.directive('demo', {
+			bind: function(el, binding, vnode) {
+				var s = JSON.stringify;
+				/* console.log(el);
+				console.log(binding);
+				console.log(vnode); */
+				el.innerHTML =
+					'name: ' + s(binding.name) + ' ;<br/>' +
+					'value: ' + s(binding.value) + ' ;<br/>' +
+					'expression: ' + s(binding.expression) + ' ;<br/>' +
+					'argument: ' + s(binding.arg) + ' ;<br/>' +
+					'modifiers: ' + s(binding.modifiers) + ' ;<br/>' +
+					'vnode keys: ' + Object.keys(vnode).join(', ') + ' ;<br/>';
+
+			},
+			inserted: function() {
+				console.log('demo 绑定dom时候执行');
+				
+
+			},
+			update: function(el, binding, vnode) {
+				console.log('dom更新了。。。');
+				var s = JSON.stringify;
+				console.log(el);
+				console.log(binding);
+				console.log(vnode);
+				el.innerHTML =
+					'name: ' + s(binding.name) + ' ;<br/>' +
+					'value: ' + s(binding.value) + ' ;<br/>' +
+					'expression: ' + s(binding.expression) + ' ;<br/>' +
+					'argument: ' + s(binding.arg) + ' ;<br/>' +
+					'modifiers: ' + s(binding.modifiers) + ' ;<br/>' +
+					'vnode keys: ' + Object.keys(vnode).join(', ') + ' ;<br/>';
+			}
+		})
+
+		var app = new Vue({
+			el: "#app",
+			data: {
+				message: 'hello  today',
+				bar: 'def',
+				name: 'cuixi'
+
+			},
+			created: function() {
+				console.log('创建了实例')
+			}
+		})
+	</script>
+</html>

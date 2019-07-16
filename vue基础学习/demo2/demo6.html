@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css" />
+		<style type="text/css">
+
+		</style>
+	</head>
+	<body>
+		<div class="am-container" id="app">
+
+			<p ref="msg">{{message}}</p>
+			<p ref="info">{{info}}</p>
+
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				message: '123',
+				info:null
+			}
+		})
+		
+		vm.message = 'new message111' // 更改数据
+		vm.$el.textContent === 'new message222' // false
+		Vue.nextTick(function() {
+			vm.$refs.msg.textContent = 'new message3333' // 异步方法
+		})
+		
+		
+		console.log(vm.$refs.msg.textContent)
+		
+		Vue.set(vm, 'Info1.vue', 'new info')
+		Vue.nextTick(function() {
+			vm.$refs.Info1.textContent = vm.Info1
+		})
+	</script>
+</html>

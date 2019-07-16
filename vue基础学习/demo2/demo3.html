@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css" />
+		<style type="text/css">
+			div,
+			span,
+			p,
+			p,
+			input,
+			button {
+				display: inline-block;
+				color: #999;
+				line-height: 3rem;
+				margin-bottom: 1rem;
+			}
+			.am-list-border>li>a, .am-list-bordered>li>a{
+				padding: .25rem 1rem;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="am-container" id="app">
+
+			<list :items="itemData"></list>
+			
+
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		Vue.component('list', {
+			render: function(createElement) {
+				console.log(this);
+				if(this.items.length){
+					return createElement('ul',{class: ['am-list', 'am-list-border', 'am-list-striped']}, this.items.map(function(item){
+						return createElement('li',
+						{
+							class: ['am-cf']
+						},[
+						createElement('a', {
+							style:{
+								display: 'inline-block',
+								color: '#333'	
+							}
+						}, item.name),	
+						createElement('span', {
+							class:['am-badge','am-badge-danger'],
+							style:{
+								display: 'inline-block',
+								padding: '.5rem',
+								margin: '10px 5px 0px 0px',
+								minWidth: '60px'
+							},
+							attrs: {
+								//name: item.name,
+								//id: "#" + item.id
+							}
+						}, item.price)
+					])
+					}))
+				}else{
+					return createElement('p',{'class': ['am-alert', 'am-alert-danger']}, 'No items found.')
+				}
+			},
+			props: ['items']
+		})
+
+		var app = new Vue({
+			el: '#app',
+			data: {
+				itemData: [
+					{name:'数学',price:201.22},
+					{name:'物理',price:101.25},
+					{name:'化学',price:91.62},
+					{name:'体育',price:131.92}
+				],
+				items2:[]
+			},
+			methods: {
+
+			}
+		})
+	</script>
+</html>

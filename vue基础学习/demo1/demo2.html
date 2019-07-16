@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css" />
+		<style type="text/css">
+			div,
+			span,
+			ul,
+			li,
+			p,
+			input {
+				display: block;
+				color: #999;
+				line-height: 3rem;
+				width: 100%;
+				margin-bottom: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="am-container" id="app">
+			<ul class="am-list">
+				<todo-item v-for="item in grouplist" v-bind:todo="item" v-bind:key="item.id"></todo-item>
+			</ul>
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		// 定义名为 todo-item 的新组件
+		Vue.component('todo-item', {
+			props:['todo'],
+			template: '<li>分类：{{todo.text}} ，  价格：{{todo.price}}</li>'
+		})
+		
+		var app = new Vue({
+			el: "#app",
+			data: {
+				grouplist: [
+					{id:0, text:'蔬菜', price:12.44},
+					{id:1, text:'牛奶', price:9.54},
+					{id:2, text:'主食', price:22.74},
+					{id:3, text:'水果', price:11.43}
+				]
+			}
+		})
+		
+		console.log(app.$parent)
+	</script>
+</html>

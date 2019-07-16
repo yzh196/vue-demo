@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css" />
+		<style type="text/css">
+			div,
+			span,
+			ul,
+			li,
+			p,
+			h6,
+			p,
+			input,
+			button {
+				display: inline-block;
+				color: #999;
+				line-height: 3rem;
+				margin-bottom: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="am-container" id="app">
+
+
+			<anchored-heading v-bind:level="num">Hello world!</anchored-heading>
+			<button class="am-btn am-btn-danger" type="button" v-on:click="change_num"><i class="am-icon-plus"></i></oi></button>
+
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/x-template" id="anchored-heading-template">
+		<h1 v-if="level === 1">
+    <slot></slot>
+  </h1>
+  <h2 v-else-if="level === 2">
+    <slot></slot>
+  </h2>
+  <h3 v-else-if="level === 3">
+    <slot></slot>
+  </h3>
+  <h4 v-else-if="level === 4">
+    <slot></slot>
+  </h4>
+  <h5 v-else-if="level === 5">
+    <slot></slot>
+  </h5>
+  <h6 v-else-if="level === 6">
+    <slot></slot>
+  </h6>
+</script>
+	<script type="text/javascript">
+		Vue.component('anchored-heading', {
+			render: function(createElement) {
+				console.log(this.$slots);
+				return createElement(
+					'h' + this.level,
+					this.$slots.default
+				)
+				
+			},
+			props: {
+				level: {
+					type: Number,
+					required: true
+				}
+			}
+		})
+
+		var app = new Vue({
+			el: '#app',
+			data: {
+				num: 6
+			},
+			methods: {
+				change_num: function() {
+					if (this.num == 1) {
+						this.num = 6;
+					}
+					this.num--;
+				}
+			}
+		})
+	</script>
+</html>

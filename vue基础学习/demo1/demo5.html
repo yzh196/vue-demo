@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css" />
+		<style type="text/css">
+			div,
+			ul,
+			li,
+			p,
+			input {
+				display: block;
+				color: #999;
+				width: 100%;
+				margin-bottom: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="am-container" id="app">
+			<div class="am-cf">
+				<button-counter></button-counter>
+				<button-counter></button-counter>
+				<button-counter></button-counter>
+			</div>
+
+			<input class="am-form-field" v-bind:value="searchText" v-on:input="searchText = $event.target.value">
+			<p>{{searchText}}</p>
+
+			<table class="am-table am-table-bordered ">
+				<thead>
+					<tr>
+						<th>书名</th>
+						<th>简介</th>
+						<th>功能</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr is="blog-post" v-bind:style="{ fontSize: postFontsize + 'em' }" v-on:change_fonts="postFontsize += 0.1" v-for="post in posts"
+					 v-bind:key="post.id" v-bind:post="post"></tr>
+				</tbody>
+			</table>
+
+			<alert-box>数据类型异常！！！</alert-box>
+
+
+
+
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		// 定义一个名为 button-counter 的新组件
+		Vue.component('button-counter', {
+			data: function() {
+				return {
+					count: 0
+				}
+			},
+			template: '<button class="am-btn am-btn-danger" v-on:click="count++">You clicked me {{ count }} times.</button>'
+		});
+		//表格组件
+		Vue.component('blog-post', {
+			props: ['post'],
+			template: '  <tr class = "blog-post" >\
+							<td>{{post.title}}</td>\
+							<td v-html="post.content"></td>\
+							<td><span v-on:click="$emit(\'change_fonts\')" class="am-badge am-badge-danger" ><i class="am-icon-plus"></i></span></td>\
+						</tr>'
+		});
+		// 插槽
+		Vue.component('alert-box', {
+			template: '<div class="am-alert am-alert-danger  am-radio">\
+							<strong>Error!</strong>\
+							<slot></slot>\
+						</div>'
+		});
+		//动态组件
+		//...
+
+		var app = new Vue({
+			el: "#app",
+			data: {
+				searchText: "input texxxxxt",
+				postFontsize: 1,
+				posts: [{
+						id: 1,
+						title: 'adc',
+						content: 'aabbcc'
+					},
+					{
+						id: 2,
+						title: 'def',
+						content: 'ddeeff'
+					},
+					{
+						id: 3,
+						title: 'gkl',
+						content: 'ggkkll'
+					}
+				]
+			},
+			computed: {
+
+			}
+		})
+	</script>
+</html>

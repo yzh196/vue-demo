@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css" />
+		<style type="text/css">
+			div,
+			span,
+			ul,
+			li,
+			p,
+			h6,
+			p,
+			input,
+			button {
+				display: inline-block;
+				color: #999;
+				line-height: 3rem;
+				margin-bottom: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="am-container" id="app">
+
+
+			<anchored-heading v-bind:level="num">hello World</anchored-heading>
+			<button class="am-btn am-btn-danger" type="button" v-on:click="change_num"><i class="am-icon-plus"></i></oi></button>
+
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var getChildrenTextContent = function(children){
+			return children.map(function(node){
+				return node.chidren? gegetChildrenTextContentt(node.children):node.text 
+			}).join(', ')
+		}
+		
+		
+		Vue.component('anchored-heading', {
+			render: function(createElement) {
+				// 创建 kebab-case 风格的ID
+				var headingId = getChildrenTextContent(this.$slots.default)
+								.toLowerCase()
+								.replace(/\W+/g, '-')
+								.replace(/(^-|-$)/g, '');
+				console.log(headingId);
+				return createElement(
+					'h' +this.level,
+					[
+						createElement('a', {
+							attrs: {
+								name: headingId,
+								href: "#" + headingId
+							}
+						}, this.$slots.default)
+					]
+				)
+			},
+			props: {
+				level: {
+					type: Number,
+					required: true
+				}
+			}
+		})
+
+		var app = new Vue({
+			el: '#app',
+			data: {
+				num: 6
+			},
+			methods: {
+				change_num: function() {
+					if (this.num == 1) {
+						this.num = 6;
+					}
+					this.num--;
+				}
+			}
+		})
+	</script>
+</html>

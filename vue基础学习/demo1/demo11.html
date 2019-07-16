@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css" />
+		<style type="text/css">
+			div,
+			ul,
+			li,
+			p,
+			input,
+			button {
+				display: block;
+				color: #999;
+				width: 100%;
+				margin-bottom: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="am-container" id="app">
+
+
+
+
+
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var mymixin = {
+			data: function() {
+				return {
+					message: 'hello vue',
+					foo: 'abc'
+				}
+			},
+			methods: {
+				hello: function() {
+					console.log('this mixin be called')
+				}
+			}
+		}
+
+		console.log(Vue)
+
+		var app = new Vue({
+			el: "#app",
+			mixins: [mymixin],
+			data: function() {
+				return {
+					message: 'hello  today',
+					bar: 'def'
+				}
+			},
+			created: function() {
+				this.hello()
+			}
+		})
+	</script>
+</html>

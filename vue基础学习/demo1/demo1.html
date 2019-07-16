@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<link rel="stylesheet" type="text/css" href="../AmazeUI/css/amazeui.min.css"/>
+		<style type="text/css">
+			div, span, ul, li, p, input, button{
+				display: block;
+				color: #999;
+				line-height: 3rem;
+				width: 100%;
+				margin-bottom: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="am-container" id="app">
+			<span v-bind:title="message">
+				{{message}}
+			</span>
+			<span v-if="see">
+				你可以看见我
+			</span>
+			<div v-html="title"></div>
+			<ul class="am-list">
+				<li class="am-list-item" v-for="item in projects">{{item.name}}</li>
+			</ul>
+			<div class="am-input-group" >
+				<label class="am-input-group-label"><i class="am-icon-clock-o"></i></label>
+				<input v-model="message" class="am-form-field" type="text"  placeholder="双向绑定" />
+			</div>
+			<button v-on:click="change_text" type="button" class="am-btn am-btn-success">点击更新</button>
+			<button v-bind:disabled="btnabled"  type="button" type="button" class="am-btn am-btn-default">按钮属性渲染</button>
+		</div>
+	</body>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let app  =  new Vue({
+			el:'#app',
+			data:{
+				message: '现在时间是 ' + new Date().toLocaleString(),
+				title:  '<span style="color: #f30;">这是一段HTML</span>',
+				see:true,
+				btnabled: true,
+				projects:[
+					{'name': 'tom'},
+					{'name': 'jack'},
+					{'name': 'lilie'}
+				]
+				//app.projects.push({'name':'vliie'})
+			},
+			methods:{
+				change_text: function(){
+					this.message = '更新时间到 ' + new Date().toLocaleString()
+				}
+			}
+		})
+	</script>
+</html>
