@@ -1,5 +1,5 @@
 <template>
-  <div :class="['todo-item', todo.complented ? 'complented' : '']">
+  <div :class="['todo-item', todo.completed ? 'completed' : '']">
     <input type="checkbox" class="toggle" v-model="todo.completed">
     <label>{{todo.contant}}</label>
     <button class="destory" @click="removeTodo"></button>
@@ -8,24 +8,19 @@
 
 <script>
 export default {
-  props:{
+  props: {
     todo: {
-      type:  Object,
+      type: Object,
       required: true
     }
   },
-  methods:{
+  methods: {
     removeTodo: function () {
-      console.log(this)
-      this.$emit('del',this.todo.id)
+      this.$emit('del', this.todo.id)
     }
-  },
-  mounted() {
-
   }
 }
 </script>
-
 
 <style lang="stylus" scoped>
   .todo-item{

@@ -1,8 +1,8 @@
 <template>
   <section class="real-app">
     <input @keyup.enter="addTodo()" v-model="info" autofocus class="add-input" placeholder="请输入记录的事情" type="text">
-    <Item :todo="todo" v-for="todo in todos" :key="todo.id" @del="delTodo"></Item>
-    <Tabs :filter="filter"></Tabs>
+    <Item :todo="todo" v-for="todo in computerTodos" :key="todo.id" @del="delTodo"></Item>
+    <Tabs :filter="filter" :todos="todos" @clearTodo="clearCompletedTodo" @toggle="filterTodos"></Tabs>
   </section>
 </template>
 
@@ -10,34 +10,48 @@
   import Item from './item.vue'
   import Tabs from './tabs.vue'
 
-
-  let id =  0;
+  let id = 0
   export default {
-    name: "todo",
-    data: function(){
-      return{
+    name: 'todo',
+    data: function () {
+      return {
         info: '',
-        todos:[
+        todos: [
 
         ],
-        filter:'all'
+        filter: 'all'
       }
     },
     components: {
       Item,
       Tabs
     },
+    computed: {
+      computerTodos: function () {
+        if (this.filter === 'all') {
+          return this.todos
+        }
+        const completed = this.filter === 'completed'
+        return this.todos.filter(todo => completed === todo.completed)
+      }
+    },
     methods: {
       addTodo: function (e) {
         this.todos.unshift({
-          id:id++,
-          contant:this.info,
+          id: id++,
+          contant: this.info,
           completed: false
         })
         this.info = ''
       },
       delTodo: function (id) {
-        this.todos.splice(this.todos.findIndex(todo => todo.id === id),1)
+        this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
+      },
+      clearCompletedTodo: function () {
+        this.todos = this.todos.filter(todo => !todo.completed)
+      },
+      filterTodos: function (state) {
+        this.filter = state
       }
     }
   }

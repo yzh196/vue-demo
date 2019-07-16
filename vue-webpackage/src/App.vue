@@ -13,7 +13,7 @@ import Footer from './views/footer.jsx'
 import Todo from './views/todo'
 
 export default {
-  components:{
+  components: {
     Header,
     Footer,
     Todo

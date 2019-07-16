@@ -1,6 +1,6 @@
 <template>
     <div class="helper">
-      <span class="left">2 items statistics</span>
+      <span class="left">{{unfinashtodoLength}} items unFinashed</span>
       <span class="tabs">
         <span v-for="state in states"
               :key="state"
@@ -9,29 +9,40 @@
           {{state}}
         </span>
       </span>
-      <span class="clear">Clear Completed</span>
+      <span class="clear" @click="clearCompletedTodo">Clear Completed</span>
     </div>
 </template>
 
 <script>
     export default {
-        name: "tabs",
-        data: function() {
-          return{
-            states: ['all','active','completed']
+        name: 'tabs',
+        data: function () {
+          return {
+            states: ['all', 'active', 'completed']
           }
         },
-        props:{
+        props: {
           filter: {
-            type:  String,
+            type: String,
+            require: true
+          },
+          todos: {
+            type: Array,
             require: true
           }
         },
         computed: {
-
+          unfinashtodoLength: function () {
+            return this.todos.filter(todo => !todo.completed).length
+          }
         },
         methods: {
-
+          clearCompletedTodo: function () {
+            this.$emit('clearTodo')
+          },
+          togglestate: function (state) {
+            this.$emit('toggle', state)
+          }
         }
 
     }
@@ -78,4 +89,3 @@
     }
   }
 </style>
-
