@@ -24,9 +24,10 @@
     },
     methods: {
       careView: function () {
-        const url = 'data/cartData.json';
+        const url = '/cms/info/iList.jsp?cat_id=10001&tm_id=524';
         this.axios.get(url).then(
           (response) => {
+            console.log(response);
             this.productList = response.data.result.list;
           })
       }
