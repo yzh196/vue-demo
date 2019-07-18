@@ -149,7 +149,6 @@ export default {
   props:{
     List: {
       type: Array,
-      default:()=>[],
       require: true
     }
   }
