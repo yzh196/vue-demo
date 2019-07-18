@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Cat :List="productList"></Cat>
+    <Cat :List="productList" :Money="totalMoney"></Cat>
   </div>
 </template>
 
@@ -9,10 +9,7 @@
   export default {
     data: function () {
       return {
-        totalMonery: {
-          type: Number,
-          require: true
-        },
+        totalMoney: 0,
         productList: []
       }
     },
@@ -24,11 +21,13 @@
     },
     methods: {
       careView: function () {
-        const url = '/cms/info/iList.jsp?cat_id=10001&tm_id=524';
+        //const url = '/cms/info/iList.jsp?cat_id=10001&tm_id=524'; 使用代理跨域查询
+        const url = 'data/cartData.json'
         this.axios.get(url).then(
           (response) => {
-            console.log(response);
+            //console.log(response);
             this.productList = response.data.result.list;
+            this.totalMoney = response.data.result.totalMoney;
           })
       }
     }

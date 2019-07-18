@@ -113,7 +113,7 @@
             </div>
             <div class="cart-foot-r">
               <div class="item-total">
-                Item total: <span class="total-price"></span>
+                Item total: <span class="total-price">{{Money}}</span>
               </div>
               <div class="next-btn-wrap">
                 <a href="javascrit:;" class="btn btn--red" style="width: 200px">结账</a>
@@ -149,6 +149,10 @@ export default {
   props:{
     List: {
       type: Array,
+      require: true
+    },
+    Money:{
+      type: Number,
       require: true
     }
   }
