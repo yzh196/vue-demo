@@ -113,7 +113,7 @@
                 Item total: <span class="total-price">{{totalMoney | filterPrice}}</span>
               </div>
               <div class="next-btn-wrap">
-                <a href="javascrit:;" class="btn btn--red" style="width: 200px" @click="gotoAddress">结账</a>
+                <router-link class="btn btn&#45;&#45;red" style="width: 200px" to="/address">结账</router-link>
               </div>
             </div>
           </div>
@@ -217,9 +217,6 @@ export default {
     confirmDelProduct: function () {
       this.List.splice(this.List.findIndex(item => item.productId === this.delProductId),1)
       this.delFlag = false;
-    },
-    gotoAddress: function () {
-        this.$router.push('/address')
     }
   }
 }

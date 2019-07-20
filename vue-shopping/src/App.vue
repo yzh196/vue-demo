@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <Cat :List="productList"></Cat>
+<!--   <Cat :List="productList" ></Cat>-->
   </div>
 </template>
 
 <script>
-  import Cat from './views/cart'
+  //import Cat from './views/cart'
   export default {
     data: function () {
       return {
@@ -13,7 +13,7 @@
       }
     },
     components: {
-      Cat
+      //Cat
     },
     mounted: function () {
       this.careView()

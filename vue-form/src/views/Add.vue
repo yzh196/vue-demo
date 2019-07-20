@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     add: function () {
-      if(this.contant == ''){
+      if (this.contant == '') {
         alert('内容不能为空')
         return
       }
