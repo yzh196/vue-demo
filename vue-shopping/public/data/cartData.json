@@ -6,8 +6,8 @@
       {
         "productId":"600100002115",
         "productName":"黄鹤楼香烟",
-        "productPrice":19.34,
-        "productQuantity":1,
+        "productPrice":19.25,
+        "productQuantity":2,
         "productImage":"/img/goods-1.jpg",
         "parts":[
           {
@@ -20,8 +20,8 @@
       {
         "productId":"600100002120",
         "productName":"加多宝",
-        "productPrice":8.33,
-        "productQuantity":5,
+        "productPrice":8.5,
+        "productQuantity":4,
         "productImage":"/img/goods-2.jpg",
         "parts":[
           {

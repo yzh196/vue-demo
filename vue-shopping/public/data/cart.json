@@ -1,62 +1,47 @@
 {
-  "status": 0,
-  "message": "success",
-  "result": {
-      "totalHoney":59,
-      "list":[
+  "message":"",
+  "status":"1",
+  "result":{
+    "totalMoney":0,
+    "productList":[
       {
-      "name": "面具1",
-      "price": 19,
-      "count": 1,
-      "amount": 19,
-      "imgPic": "static/img/test.jpg",
-      "gifts": [
-        {
-          "partId":"10001",
-          "partName":"打火机"
-        },
-        {
-          "partId":"10002",
-          "partName":"火柴"
-        }
-      ]
-      },
-      {
-      "name": "面具2",
-      "price": 20,
-      "count": 1,
-      "amount": 20,
-      "imgPic": "static/img/test1.jpg",
-        "gifts": [
+        "productId":"10001",
+        "productName":"黄鹤楼香烟",
+        "productPrice":19,
+        "productQuentity":1,
+        "productImage":"goods-1.jpg",
+        "parts":[
           {
-            "partId":"10001",
-            "partName":"打火机"
+            "partsId":"a001",
+            "partsName":"打火机"
           },
           {
-            "partId":"10002",
-            "partName":"火柴盒"
+            "partsId":"a002",
+            "partsName":"XXX"
           }
         ]
       },
-        {
-          "name": "面具3",
-
-          "price": 20,
-          "count": 1,
-          "amount": 20,
-          "imgPic": "static/img/test1.jpg",
-          "gifts": [
-            {
-              "partId":"10001",
-              "partName":"打火机"
-            },
-            {
-              "partId":"10002",
-              "partName":"火柴盒"
-            }
-          ]
-        }
-      ]
+      {
+        "productId":"10002",
+        "productName":"加多宝",
+        "productPrice":8,
+        "productQuentity":1,
+        "productImage":"goods-2.jpg",
+        "parts":[
+          {
+            "partsId":"a001",
+            "partsName":"吸管"
+          }
+        ]
+      },
+      {
+        "productId":"10003",
+        "productName":"耳机",
+        "productPrice":39,
+        "productQuentity":1,
+        "productImage":"ear.jpeg",
+        "parts":[]
+      }
+    ]
   }
-
 }

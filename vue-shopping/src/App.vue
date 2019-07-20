@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Cat :List="productList" :Money="totalMoney"></Cat>
+    <Cat :List="productList"></Cat>
   </div>
 </template>
 
@@ -9,7 +9,6 @@
   export default {
     data: function () {
       return {
-        totalMoney: 0,
         productList: []
       }
     },
@@ -27,13 +26,13 @@
           (response) => {
             //console.log(response);
             this.productList = response.data.result.list;
-            this.totalMoney = response.data.result.totalMoney;
           })
       }
     }
   }
 </script>
 
-<style lang="">
+<style lang="css">
+
 
 </style>
