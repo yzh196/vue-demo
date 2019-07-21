@@ -130,6 +130,7 @@ export default {
   },
   mounted: function () {
     this.careView();
+    console.log(this)
   },
   computed: {
     filterAddressList: function () {
@@ -151,7 +152,6 @@ export default {
           const _this = this;
          this.addressList.forEach(function (item) {
             if (addressId == item.addressId){
-              console.log(addressId)
               item.isDefault = true;
               _this.activeIndex = index;
             }else {

@@ -33,7 +33,7 @@
     <div class="container">
       <div class="cart">
         <div class="checkout-title">
-          <span>购物车</span>
+          <span>购物车 - {{userName}}</span>
         </div>
 
         <!-- table -->
@@ -154,9 +154,12 @@
 
 
 <script>
+  import store from '../store'
   export default {
+    store,
     data: function () {
       return {
+        userName: store.state.userName,
         productList: [],
         checkallFlag: false,
         delFlag: false,
@@ -181,8 +184,8 @@
     },
     mounted: function () {
       this.$nextTick(function () {
-        this.careView()
-      })
+        this.careView();
+      });
     },
     methods: {
       careView: function () {

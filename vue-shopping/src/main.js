@@ -7,6 +7,11 @@ import axios from './axios'
 Vue.config.productionTip = false
 
 new Vue({
+  data: function(){
+    return {
+      name: 'yzh'
+    }
+  },
   router,
   store,
   axios,
