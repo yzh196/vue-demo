@@ -120,6 +120,9 @@
   .addr-list li.check {
     border-color: #EE7A23;
     border-width: 2px; }
+.addr-list li.default {
+  border-color: #2f68ee !important;
+  border-width: 2px; }
     .addr-list li.check .addr-opration {
       display: block; }
 

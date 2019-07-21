@@ -44,11 +44,11 @@
       <div class="addr-list-wrap">
         <div class="addr-list">
           <ul>
-            <li>
+            <li v-for="(item,index) in filterAddressList" :class="{'check' : activeIndex == index, 'default' : item.isDefault }" :key="item.addressId" @mouseover="activeIndex=index">
               <dl>
-                <dt>Alex</dt>
-                <dd class="address">北京市海淀去中关村</dd>
-                <dd class="tel">10010</dd>
+                <dt>{{item.userName}}</dt>
+                <dd class="address">{{item.streetName}}</dd>
+                <dd class="tel">{{item.postCode}}</dd>
               </dl>
               <div class="addr-opration addr-edit">
                 <a href="javascript:;" class="addr-edit-btn">
@@ -60,10 +60,11 @@
                   <svg class="icon icon-del"><use xlink:href="#icon-del"></use></svg>
                 </a>
               </div>
-              <div class="addr-opration addr-set-default">
+              <div class="addr-opration addr-set-default" @click="setDefaultAddress(item.addressId)"  v-if="!item.isDefault">
                 <a href="javascript:;" class="addr-set-default-btn"><i>设为默认</i></a>
               </div>
-              <div class="addr-opration addr-default">默认地址</div>
+              <div class="addr-opration addr-default" v-if="item.isDefault"  @click="setDefaultAddress(item.addressId,index)">默认地址</div>
+
             </li>
 
             <li class="addr-new">
@@ -78,7 +79,7 @@
         </div>
 
         <div class="shipping-addr-more">
-          <a class="addr-more-btn up-down-btn" href="javascript:;">
+          <a class="addr-more-btn up-down-btn" href="javascript:;" @click="limitNum = addressList.length">
             more
             <i class="i-up-down">
               <i class="i-up-down-l"></i>
@@ -120,8 +121,44 @@
 
 export default {
   name: 'address',
-  components: {
+  data: function () {
+    return{
+      addressList : [],
+      limitNum: 3,
+      activeIndex: 0
+    }
+  },
+  mounted: function () {
+    this.careView();
+  },
+  computed: {
+    filterAddressList: function () {
+      return this.addressList.slice(0,this.limitNum);
+    }
+  },
+  methods: {
+    careView: function () {
+      //const url = '/cms/info/iList.jsp?cat_id=10001&tm_id=524'; 使用代理跨域查询
+      const url = 'data/address.json';
+      this.axios.get(url).then(
+        (response) => {
+          //console.log(response);
+          this.addressList = response.data.result;
+        })
+    },
+    setDefaultAddress: function (addressId,index) {
 
+          const _this = this;
+         this.addressList.forEach(function (item) {
+            if (addressId == item.addressId){
+              console.log(addressId)
+              item.isDefault = true;
+              _this.activeIndex = index;
+            }else {
+              item.isDefault = false
+            }
+         })
+    }
   }
 }
 </script>
