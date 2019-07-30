@@ -2,7 +2,6 @@
   <div class="home">
 
     <!-- 联系人列表 -->
-
       <van-contact-list
         :list="list"
         @add="onAdd"
@@ -10,42 +9,65 @@
 
       />
 
+    <!-- 联系人编辑 -->
+    <van-popup v-model="showEdit" position="bottom">
+      <van-contact-edit
+        :contact-info="editingContact"
+        :is-edit="isEdit"
+        @save="onSave"
+        @delete="onDelete"
+      />
+    </van-popup>
+
   </div>
 </template>
 
 <script>
-  import {Toast,ContactList} from 'vant'
-  import axios from '../axios';
+  import {Toast, ContactList, ContactEdit, Popup} from 'vant'
+  import instance from '../axios';
 
 export default {
   name: 'home',
-  axios,
+
   data: function(){
     return {
-      list: []
+      instance: instance,
+      list: [],
+      showEdit: false,
+      editingContact: {},
+      isEdit: false
+
     }
   },
   components: {
     [ContactList.name]: ContactList,
-    [Toast.name]: Toast
+    [ContactEdit.name]: ContactEdit,
+    [Popup.name]: Popup
   },
   created() {
-    const url = 'http://localhost:9000/api/contactList';
-    this.axios.get(url).then(res => {
-      console.log(res)
+    const url = '/contactList';
+    this.instance.get(url).then(res => {
       this.list = res.data.data;
     }).catch(err => {
-      Toast(err.toString());
+      if (err.response.status == 404) {
+        Toast("请求的地址错误");
+      }
     })
   },
   methods: {
     onAdd: function () {
+      this.showEdit = true,
+        this.isEdit = false
+    },
+    onEdit: function (item) {
+      this.showEdit = true,
+        this.isEdit = true,
+        this.editingContact = item;
+    },
+    onSave: function () {
 
     },
-    onEdit: function () {
-
-    },
-    onSelect: function () {
+    onDelete: function () {
 
     }
   }
@@ -53,6 +75,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang="css" scoped>
+  .van-popup {
+    height: 100%;
+  }
 
+  .van-contact-list__add {
+    z-index: 0;
+  }
 </style>
