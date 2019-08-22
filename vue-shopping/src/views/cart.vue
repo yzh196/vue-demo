@@ -58,9 +58,14 @@
                       </svg>
                     </a>
                   </div>
+                  <<<<<<< Updated upstream
                   <div class="cart-item-pic">
                     <img :src="item.productImage" alt="烟">
-                  </div>
+                    =======
+                    <div class="cart-tab-2">
+                      <div class="item-price">{{item.productPrice | fomartProductprice}}</div>
+                      >>>>>>> Stashed changes
+                    </div>
                   <div class="cart-item-title">
                     <div class="item-name">{{item.productName}}</div>
                   </div>
@@ -244,6 +249,12 @@
         this.productList.splice(this.List.findIndex(item => item.productId === this.delProductId), 1);
         this.delFlag = false;
       }
+    }
+  }
+  ,
+  filters: {
+    fomartProductprice: function (value) {
+      return "￥" + value.toFixed(2)
     }
   }
 </script>

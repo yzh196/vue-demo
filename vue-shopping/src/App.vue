@@ -12,6 +12,15 @@
     components: {
     },
     mounted: function () {
+    <<<<<<<
+      Updated
+      upstream
+      === === =
+        this.$nextTick(function () {
+          this.careView()
+        })
+        >>> >>> > Stashed
+      changes
 
     },
     methods: {
